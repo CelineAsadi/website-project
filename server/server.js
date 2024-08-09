@@ -8,11 +8,12 @@ const app = express();
 //const port = 3001;
 const port = process.env.PORT || 3001;
 const corsOptions = {
-    origin: "http://localhost:3000",
+    origin: [
+        "http://localhost:3000",
+        "https://website-project-client.vercel.app/"
+    ],
 };
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
+
 
 // Middleware
 app.use(cors(corsOptions));
