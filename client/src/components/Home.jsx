@@ -98,7 +98,7 @@ function Home() {
           className="mb-4 px-4 py-2 bg-green-500 hover:bg-green-600 text-white font-bold rounded-lg transition-colors duration-300"
           onClick={handleSignIn}
         >
-          Sign In
+          Sign up
         </button>
         <button
           className={`px-4 py-2 ${isDarkMode ? 'bg-gray-600 hover:bg-gray-500' : 'bg-gray-300 hover:bg-gray-200'} ${isDarkMode ? 'text-white' : 'text-black'} font-bold rounded-lg transition-colors duration-300`}
