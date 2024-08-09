@@ -10,6 +10,9 @@ const port = process.env.PORT || 3001;
 const corsOptions = {
     origin: "http://localhost:3000",
 };
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+});
 
 // Middleware
 app.use(cors(corsOptions));
