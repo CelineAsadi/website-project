@@ -29,13 +29,18 @@ function ForgotPassword() {
             setErrors({ form: 'Please fill in all fields.' });
             return;
         }
+        const isValidEmail = email.endsWith('@gmail.com');
+        if(!isValidEmail){
+            setErrors({ form:'Email must end with @gmail.com' });
+            return;
+        }
 
         // Check if new password and confirmation match
         if (newPassword !== confirmPassword) {
             setErrors({ form: 'Passwords do not match.' });
             return;
         }
-
+        
         try {
             // Send password reset request to the server
             const response = await axios.post('http://localhost:3001/ForgotPassword', { email, newPassword });

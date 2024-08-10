@@ -43,12 +43,12 @@ app.post('/Login', async (req, res) => {
     try {
         const user = await User.findOne({ username: username });
         if (!user) {
-            return res.status(400).json({ message: 'User not found' });
+            return res.status(200).json({ message: 'User not found' });
         }
         if (user.password === password) {
             return res.status(200).json({ _id: user._id, message: 'Login success' });
         } else {
-            return res.status(400).json({ message: 'Invalid credentials' });
+            return res.status(200).json({ message: 'Invalid credentials' });
         }
     } catch (err) {
         console.error(err);
@@ -62,7 +62,7 @@ app.post('/Register', async (req, res) => {
     try {
         const check = await User.findOne({ username: username });
         if (check) {
-            return res.status(400).json({ message: 'User already exists' });
+            return res.status(200).json({ message: 'User already exists' });
         } else {
             const data = {
                 username: username,
@@ -85,7 +85,7 @@ app.post('/favorites/add', async (req, res) => {
     try {
         const user = await User.findById(userId);
         if (!user) {
-            return res.status(400).json({ message: 'User not found' });
+            return res.status(200).json({ message: 'User not found' });
         }
 
         // Check if the news is already in the favorites
@@ -108,7 +108,7 @@ app.post('/favorites/remove', async (req, res) => {
     try {
         const user = await User.findById(userId);
         if (!user) {
-            return res.status(400).json({ message: 'User not found' });
+            return res.status(200).json({ message: 'User not found' });
         }
 
         user.favoriteNews = user.favoriteNews.filter(item => item.url !== newsUrl);
