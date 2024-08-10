@@ -61,8 +61,8 @@ function Home() {
 
   return (
     <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900 text-gray-200' : 'bg-gray-100 text-gray-800'} transition-colors duration-300`}>
-      <header className={`w-full py-6 px-8 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-200'} flex flex-col items-center border-b border-gray-300`}>
-        <h1 className={`text-4xl font-extrabold ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>TRENDING NEWS</h1>
+      <header className={`w-full py-6 px-4 sm:px-8 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-200'} flex flex-col items-center border-b border-gray-300`}>
+        <h1 className={`text-3xl sm:text-4xl font-extrabold ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>TRENDING NEWS</h1>
         <button
           className={`mt-4 px-4 py-2 ${isDarkMode ? 'bg-blue-600 hover:bg-blue-500' : 'bg-blue-400 hover:bg-blue-300'} ${isDarkMode ? 'text-white' : 'text-black'} font-bold rounded-lg transition-colors duration-300`}
           onClick={handleSearch}
@@ -70,14 +70,14 @@ function Home() {
           Search
         </button>
       </header>
-      <main className="flex-grow flex justify-center items-start pt-8">
+      <main className={`flex-grow flex flex-col items-center pt-8 pb-24 ${isDarkMode ? 'bg-gray-900' : 'bg-gray-100'}`}>
         <div className="w-full max-w-4xl p-4">
           {articles.length === 0 ? (
             <p className="text-center text-gray-600">No articles found.</p>
           ) : (
             articles.map((article, index) => (
-              <div key={index} className={`mb-4 p-6 rounded-lg shadow-lg ${isDarkMode ? 'bg-gray-800' : 'bg-white'} transition-colors duration-300`}>
-                <h3 className="text-2xl font-semibold mb-2">{article.title}</h3>
+              <div key={index} className={`mb-4 p-4 sm:p-6 rounded-lg shadow-lg ${isDarkMode ? 'bg-gray-800' : 'bg-white'} transition-colors duration-300`}>
+                <h3 className="text-xl sm:text-2xl font-semibold mb-2">{article.title}</h3>
                 <p className={`text-base mb-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-700'}`}>{article.description}</p>
                 <a href={article.url} target="_blank" rel="noopener noreferrer" className={`text-blue-500 hover:underline ${isDarkMode ? 'hover:text-blue-300' : 'hover:text-blue-700'}`}>
                   Read more
@@ -87,15 +87,15 @@ function Home() {
           )}
         </div>
       </main>
-      <aside className={`fixed top-0 right-0 mt-4 mr-4 w-48 p-4 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-200'} flex flex-col items-center rounded-lg shadow-lg border border-gray-300`}>
+      <div className={`fixed bottom-0 left-0 right-0 z-50 p-4 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-200'} flex justify-around border-t border-gray-300`}>
         <button
-          className="mb-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg transition-colors duration-300"
+          className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg transition-colors duration-300"
           onClick={handleLogin}
         >
           Log In
         </button>
         <button
-          className="mb-4 px-4 py-2 bg-green-500 hover:bg-green-600 text-white font-bold rounded-lg transition-colors duration-300"
+          className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white font-bold rounded-lg transition-colors duration-300"
           onClick={handleSignIn}
         >
           Sign up
@@ -106,13 +106,13 @@ function Home() {
         >
           {isDarkMode ? 'Light Mode' : 'Dark Mode'}
         </button>
-      </aside>
+      </div>
       <footer className={`bg-${isDarkMode ? 'gray-900' : 'blue-100'} text-center py-8 mt-auto ${isDarkMode ? 'text-white' : 'text-black'}`}>
         <p className="text-base md:text-lg">
           Stay informed with Trending News, your trusted source for timely and accurate news coverage. Explore breaking stories, in-depth analysis, and stay connected with the world around you.
         </p>
         <p className="text-base md:text-lg mt-4">Follow us for the latest updates:</p>
-        <div className="mt-4">
+        <div className="mt-4 flex justify-center flex-wrap">
           <a href="https://www.facebook.com/login/" target="_blank" className={`text-blue-600 hover:underline mr-4 ${isDarkMode ? 'text-blue-400' : 'text-blue-700'}`}>Facebook</a>
           <a href="https://www.instagram.com/accounts/login/" target="_blank" className={`text-pink-600 hover:underline ${isDarkMode ? 'text-pink-400' : 'text-pink-700'}`}>Instagram</a>
         </div>
@@ -123,3 +123,4 @@ function Home() {
 }
 
 export default Home;
+

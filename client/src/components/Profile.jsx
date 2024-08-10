@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { fetchNews } from    '../newsService'; // Function to fetch news from an external service
-import { useNavigate } from 'react-router-dom';
+import { fetchNews } from '../newsService'; // Import the function to fetch news articles
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for routing
 import axios from 'axios';
 
 const Profile = () => {
@@ -111,43 +111,17 @@ const Profile = () => {
 
   return (
     <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900 text-gray-200' : 'bg-gray-100 text-gray-800'} transition-colors duration-300`}>
-      <header className={`w-full py-4 px-8 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-200'} flex justify-between items-center border-b border-gray-300`}>
-        <h1 className={`text-4xl font-extrabold ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>Profile</h1>
-        <div className="flex space-x-4">
-          <button
-            onClick={handleProfileCardPage}
-            className={`w-48 h-12 px-4 py-2 rounded-md ${isDarkMode ? 'bg-blue-800 text-white hover:bg-blue-900' : 'bg-blue-500 text-white hover:bg-blue-600'} font-bold transition-colors duration-300`}
-          >
-            Profile Card
-          </button>
-          <button
-            onClick={handleFavoritesPage}
-            className={`w-48 h-12 px-4 py-2 rounded-md ${isDarkMode ? 'bg-green-500 text-white hover:bg-green-600' : 'bg-green-500 text-white hover:bg-green-600'} font-bold transition-colors duration-300`}
-          >
-            Favorite News
-          </button>
-          <button
-            onClick={handleToggleDarkMode}
-            className={`w-48 h-12 px-4 py-2 rounded-md ${isDarkMode ? 'bg-gray-600 text-white hover:bg-gray-700' : 'bg-gray-300 text-black hover:bg-gray-400'} font-bold transition-colors duration-300`}
-          >
-            {isDarkMode ? 'Light Mode' : 'Dark Mode'}
-          </button>
-          <button
-            onClick={handleLogOut}
-            className={`w-48 h-12 px-4 py-2 rounded-md ${isDarkMode ? 'bg-red-600 text-white hover:bg-red-700' : 'bg-red-300 text-black hover:bg-red-400'} font-bold transition-colors duration-300`}
-          >
-            Log Out
-          </button>
-        </div>
+      <header className={`w-full py-6 px-4 sm:px-8 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-200'} flex flex-col items-center border-b border-gray-300`}>
+        <h1 className={`text-3xl sm:text-4xl font-extrabold ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>Profile</h1>
       </header>
-      <main className="flex-grow p-4">
+      <main className="flex-grow p-4 sm:p-8">
         <div className="mb-4">
           <label htmlFor="category-select" className="block text-lg mb-2">Select Category:</label>
           <select
             id="category-select"
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className={`w-full h-12 px-4 py-2 rounded-md ${isDarkMode ? 'bg-gray-700 text-gray-200' : 'bg-gray-200 text-black'} font-bold`}
+            className={`w-full h-12 px-4 py-2 rounded-lg font-bold transition-colors duration-300 ${isDarkMode ? 'bg-gray-700 text-gray-200' : 'bg-gray-200 text-black'}`}
           >
             <option value="All">All</option>
             {Object.keys(categorizedNews).map(category => (
@@ -159,7 +133,7 @@ const Profile = () => {
         </div>
 
         {notification && (
-          <div className={`p-4 mb-4 rounded-md ${isDarkMode ? 'bg-green-800 text-green-300 border-green-600' : 'bg-green-100 text-green-800 border-green-300'} border`}>
+          <div className={`p-4 mb-4 rounded-lg border ${isDarkMode ? 'bg-green-800 text-green-300 border-green-600' : 'bg-green-100 text-green-800 border-green-300'}`}>
             {notification}
           </div>
         )}
@@ -169,12 +143,10 @@ const Profile = () => {
         {!loading && !error && (selectedCategory === 'Favorites' ? favorites : filteredNews).length ? (
           <ul className="space-y-4">
             {(selectedCategory === 'Favorites' ? favorites : filteredNews).map(newsItem => (
-              <li key={newsItem.id} className={`p-4 border rounded shadow-md ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-300'}`}>
-                <div>
-                  <h3 className="text-xl font-semibold">{newsItem.title}</h3>
-                  <p className={`text-base ${isDarkMode ? 'text-gray-400' : 'text-gray-700'}`}>{newsItem.description}</p>
-                </div>
-                <button 
+              <li key={newsItem.id} className={`p-4 rounded-lg shadow-lg ${isDarkMode ? 'bg-gray-800' : 'bg-white'} transition-colors duration-300`}>
+                <h3 className="text-xl font-semibold">{newsItem.title}</h3>
+                <p className={`text-base ${isDarkMode ? 'text-gray-400' : 'text-gray-700'}`}>{newsItem.description}</p>
+                <button
                   onClick={() => handleToggleFavorite(newsItem)}
                   className="text-yellow-500 hover:text-yellow-600"
                 >
@@ -187,16 +159,42 @@ const Profile = () => {
           <p>No news available in this category</p>
         )}
       </main>
-      <footer className={`bg-blue-100 text-center py-8 mt-auto ${isDarkMode ? 'bg-gray-900 text-gray-200' : 'text-gray-800'}`}>
+      <aside className={`fixed bottom-0 left-0 right-0 z-50 p-4 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-200'} flex justify-around border-t border-gray-300`}>
+        <button
+          onClick={handleProfileCardPage}
+          className={`px-4 py-2 rounded-lg font-bold transition-colors duration-300 ${isDarkMode ? 'bg-blue-600 hover:bg-blue-500 text-white' : 'bg-blue-400 hover:bg-blue-300 text-black'}`}
+        >
+          Profile Card
+        </button>
+        <button
+          onClick={handleFavoritesPage}
+          className={`px-4 py-2 rounded-lg font-bold transition-colors duration-300 ${isDarkMode ? 'bg-green-500 hover:bg-green-600 text-white' : 'bg-green-500 hover:bg-green-600 text-white'}`}
+        >
+          Favorite News
+        </button>
+        <button
+          onClick={handleLogOut}
+          className={`px-4 py-2 rounded-lg font-bold transition-colors duration-300 ${isDarkMode ? 'bg-red-500 hover:bg-red-600 text-white' : 'bg-red-500 hover:bg-red-600 text-white'}`}
+        >
+          Log Out
+        </button>
+        <button
+          onClick={handleToggleDarkMode}
+          className={`px-4 py-2 rounded-lg font-bold transition-colors duration-300 ${isDarkMode ? 'bg-gray-600 hover:bg-gray-500 text-white' : 'bg-gray-300 hover:bg-gray-200 text-black'}`}
+        >
+          {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+        </button>
+      </aside>
+      <footer className={`bg-${isDarkMode ? 'gray-900' : 'blue-100'} text-center py-8 mt-auto ${isDarkMode ? 'text-white' : 'text-black'}`}>
         <p className="text-base md:text-lg">
           Stay informed with Trending News, your trusted source for timely and accurate news coverage. Explore breaking stories, in-depth analysis, and stay connected with the world around you.
         </p>
         <p className="text-base md:text-lg mt-4">Follow us for the latest updates:</p>
-        <div className="mt-4">
-          <a href="https://www.facebook.com/login/" target="_blank" className={`text-blue-600 hover:underline mr-4 ${isDarkMode ? 'text-blue-400' : 'text-blue-700'}`}>Facebook</a>
-          <a href="https://www.instagram.com/accounts/login/" target="_blank" className={`text-pink-600 hover:underline ${isDarkMode ? 'text-pink-400' : 'text-pink-700'}`}>Instagram</a>
+        <div className="mt-4 flex justify-center flex-wrap">
+          <a href="https://www.facebook.com/login/" target="_blank" rel="noopener noreferrer" className={`text-blue-600 hover:underline mr-4 ${isDarkMode ? 'text-blue-400' : 'text-blue-700'}`}>Facebook</a>
+          <a href="https://www.instagram.com/accounts/login/" target="_blank" rel="noopener noreferrer" className={`text-pink-600 hover:underline ${isDarkMode ? 'text-pink-400' : 'text-pink-700'}`}>Instagram</a>
         </div>
-        <p className="text-sm mt-8">&copy; <span id="year"></span> Trending News. All rights reserved.</p>
+        <p className="text-sm mt-8">&copy; <span id="year">{new Date().getFullYear()}</span> Trending News. All rights reserved.</p>
       </footer>
     </div>
   );
