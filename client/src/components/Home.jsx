@@ -107,7 +107,7 @@ function Home() {
           {isDarkMode ? 'Light Mode' : 'Dark Mode'}
         </button>
       </aside>
-      <footer className={`bg-blue-100 text-center py-8 mt-auto ${isDarkMode ? 'bg-gray-900 text-black' : 'text-gray-800'}`}>
+      <footer className={`bg-${isDarkMode ? 'gray-900' : 'blue-100'} text-center py-8 mt-auto ${isDarkMode ? 'text-white' : 'text-black'}`}>
         <p className="text-base md:text-lg">
           Stay informed with Trending News, your trusted source for timely and accurate news coverage. Explore breaking stories, in-depth analysis, and stay connected with the world around you.
         </p>
