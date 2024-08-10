@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchNews } from '../newsService'; // Function to fetch news from an external service
+import { fetchNews } from    '../newsService'; // Function to fetch news from an external service
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 

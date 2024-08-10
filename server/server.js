@@ -41,15 +41,20 @@ app.post('/ForgotPassword', async (req, res) => {
 app.post('/Login', async (req, res) => {
     const { username, password } = req.body;
     try {
+       // Check if there is a user with the provided username
         const user = await User.findOne({ username: username });
         if (!user) {
+            // If no user is found, respond with a 'User not found' message
             return res.status(200).json({ message: 'User not found' });
         }
+        // Check if the provided password matches the stored password
         if (user.password === password) {
+            // If the passwords match, respond with the user's ID and a 'Login success' message
             return res.status(200).json({ _id: user._id, message: 'Login success' });
-        } else {
+       } else {
+            // If the passwords do not match, respond with an 'Invalid credentials' message
             return res.status(200).json({ message: 'Invalid credentials' });
-        }
+       }
     } catch (err) {
         console.error(err);
         return res.status(500).json({ message: 'Server error' });
