@@ -103,6 +103,7 @@ app.post('/favorites/add', async (req, res) => {
         // Check if the news is already in the favorites
         const existingFavorite = user.favoriteNews.find(item => item.url === newsUrl);
         if (!existingFavorite) {
+            // Add the news item to the user's list of favorite news
             user.favoriteNews.push({ url: newsUrl, description: newsDescription });
             await user.save();
         }
@@ -118,11 +119,11 @@ app.post('/favorites/add', async (req, res) => {
 app.post('/favorites/remove', async (req, res) => {
     const { userId, newsUrl } = req.body;
     try {
-        const user = await User.findById(userId);
+        const user = await User.findById(userId);//find the userId 
         if (!user) {
             return res.status(200).json({ message: 'User not found' });
         }
-
+        // filters the news ,it keeps all favorite news items except the one that matches the specified URL.
         user.favoriteNews = user.favoriteNews.filter(item => item.url !== newsUrl);
         await user.save();
 
