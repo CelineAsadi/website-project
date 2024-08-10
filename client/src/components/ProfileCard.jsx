@@ -67,12 +67,12 @@ function ProfileCard() {
 
     // Validate email and phone
     const isValidEmail = email.endsWith('@gmail.com');
-    const isValidPhone = phone.length === 10;
+   
 
-    if (!isValidEmail || !isValidPhone) {
+    if (!isValidEmail ) {
       setErrors({
-        email: !isValidEmail ? 'Email must end with @gmail.com' : '',
-        phone: !isValidPhone ? 'Phone must be 10 digits' : ''
+        email: !isValidEmail ? 'Email must end with @gmail.com' : ''
+        
       });
       return;
     }
