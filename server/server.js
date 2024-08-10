@@ -63,7 +63,15 @@ app.post('/Register', async (req, res) => {
         const check = await User.findOne({ username: username });
         if (check) {
             return res.status(200).json({ message: 'User already exists' });
-        } else {
+
+        }
+         // Check if the email already exists
+         const userByEmail = await User.findOne({ email: email });
+         if (userByEmail) {
+             return res.status(200).json({ message: 'Email already exists' });
+         }
+ 
+         else {
             const data = {
                 username: username,
                 email: email,
