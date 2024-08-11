@@ -10,7 +10,7 @@ const port = process.env.PORT || 3001;
 const corsOptions = {
     origin: [
         "http://localhost:3000",
-        "https://website-project-orpin.vercel.app/"
+        
     ],
 };
 
