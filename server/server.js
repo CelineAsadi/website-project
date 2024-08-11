@@ -17,6 +17,10 @@ const corsOptions = {
 
 
 // Middleware
+app.use(cors({
+    origin: '*',  // Allows all origins
+  }));
+  
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(express.static('public'));
