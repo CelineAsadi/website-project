@@ -26,7 +26,7 @@ const FavoritesPage = () => {
       }
 
       try {
-        const response = await axios.get(`http://localhost:3001/favorites/${userIdFromStorage}`); // Fetch favorites from API
+        const response = await axios.get(`https://website-project-orpin.vercel.app/favorites/${userIdFromStorage}`); // Fetch favorites from API
         setFavorites(response.data.favorites || []); // Update state with fetched favorites
       } catch (error) {
         setError('Failed to fetch favorite news'); // Set error message if fetching fails
@@ -41,7 +41,7 @@ const FavoritesPage = () => {
   // Remove a news item from favorites
   const removeFavorite = async (newsUrl) => {
     try {
-      await axios.post(`http://localhost:3001/favorites/remove`, { userId, newsUrl }); // Send request to remove favorite
+      await axios.post(`https://website-project-orpin.vercel.app/favorites/remove`, { userId, newsUrl }); // Send request to remove favorite
       setFavorites(favorites.filter(favorite => favorite.url !== newsUrl)); // Update favorites state
       setNotification('News item removed from favorites.'); // Set notification
     } catch (error) {

@@ -43,7 +43,7 @@ function ForgotPassword() {
         
         try {
             // Send password reset request to the server
-            const response = await axios.post('http://localhost:3001/ForgotPassword', { email, newPassword });
+            const response = await axios.post('https://website-project-orpin.vercel.app/ForgotPassword', { email, newPassword });
 
             // Check if password reset was successful
             if (response.data.message === 'Password reset success') {

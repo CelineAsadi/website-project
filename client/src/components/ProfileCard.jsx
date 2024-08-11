@@ -45,7 +45,7 @@ function ProfileCard() {
       }
 
       try {
-        const response = await axios.get(`http://localhost:3001/profilecard/${userId}`); // Fetch profile data from API
+        const response = await axios.get(`https://website-project-orpin.vercel.app/profilecard/${userId}`); // Fetch profile data from API
         const { username, email, phone } = response.data;
         setUsername(username);
         setEmail(email);
@@ -78,7 +78,7 @@ function ProfileCard() {
     }
 
     try {
-      const response = await axios.put(`http://localhost:3001/update-profile/${userId}`, {
+      const response = await axios.put(`https://website-project-orpin.vercel.app/update-profile/${userId}`, {
         username,
         email,
         phone

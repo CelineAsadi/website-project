@@ -86,12 +86,12 @@ const Profile = () => {
 
       if (isFavorite) {
         // Remove from favorites
-        await axios.post('http://localhost:3001/favorites/remove', { userId, newsUrl: newsItem.url });
+        await axios.post('https://website-project-orpin.vercel.app/favorites/remove', { userId, newsUrl: newsItem.url });
         setFavorites(prevFavorites => prevFavorites.filter(fav => fav.url !== newsItem.url));
         
       } else {
         // Add to favorites
-        await axios.post('http://localhost:3001/favorites/add', { userId, newsUrl: newsItem.url, newsDescription: newsItem.description });
+        await axios.post('https://website-project-orpin.vercel.app/favorites/add', { userId, newsUrl: newsItem.url, newsDescription: newsItem.description });
         setFavorites(prevFavorites => [...prevFavorites, { url: newsItem.url, description: newsItem.description }]);
         setNotification('News item added to favorites.');
       }

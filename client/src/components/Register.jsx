@@ -52,7 +52,7 @@ function Register() {
 
         try {
             // Send registration request to the server
-            const response = await axios.post('http://localhost:3001/Register', {
+            const response = await axios.post('https://website-project-orpin.vercel.app/Register', {
                 username,
                 email,
                 phone,
