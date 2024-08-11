@@ -7,27 +7,21 @@ const mongoose = require('mongoose');
 const app = express();
 //const port = 3001;
 const port =3001;
-// const corsOptions = {
-//     origin: [
-//         "http://localhost:3000",
-//         "https://website-project-khak.vercel.app/"
-        
-//     ],
-// };
-const corsOptions = [
-  
+const corsOptions = {
+    origin: [
         "http://localhost:3000",
         "https://website-project-khak.vercel.app/"
         
- 
-];
+    ],
+};
 
-// // Middleware
-// app.use(cors({
-//     origin: '*',  // Allows all origins
-//   }));
+
+// Middleware
+app.use(cors({
+    origin: '*',  // Allows all origins
+  }));
   
-app.use(cors({ origin: corsOptions }));
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
