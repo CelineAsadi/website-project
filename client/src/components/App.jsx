@@ -9,8 +9,7 @@ import Profile from './Profile';
 import FavoriteNews from './FavoriteNews';
 import './index.css';
 
-// Configuring the base URL for API requests
-// export const ipAddress = 'https://server-dunm.onrender.com'; // Use this for production
+
 export const ipAddress = 'https://website-project-orpin.vercel.app/'; // Use this for local development
 
 function App() {
