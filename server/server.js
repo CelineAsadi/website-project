@@ -58,7 +58,7 @@ app.post('/Login', async (req, res) => {
             return res.status(200).json({ _id: user._id, message: 'Login success' });
        } else {
             // If the passwords do not match, respond with an 'Invalid credentials' message
-            return res.status(200).json({ message: 'Username or Password is incorrect . Please try again.' });
+            return res.status(200).json({ message: 'Invalid credentials' });
        }
     } catch (err) {
         console.error(err);
@@ -180,10 +180,6 @@ app.put('/update-profile/:userId', async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-        //  const emailExists = await User.findOne({ email });
-        //     if (emailExists) {
-        //         return res.status(400).json({ message: 'Email is already taken' });
-        //     }
 
         // Check if the new username is already taken
         if (username && username !== user.username) {
@@ -196,7 +192,10 @@ app.put('/update-profile/:userId', async (req, res) => {
 
         // Validate email and phone
         if (email && !email.endsWith('@gmail.com')) {
-           
+            // const emailExists = await User.findOne({ email });
+            // if (emailExists) {
+            //     return res.status(400).json({ message: 'email is already taken' });
+            // }
             return res.status(400).json({ message: 'Email must end with @gmail.com' });
         }
         if (phone && phone.length !== 10 || !/^\d{10}$/.test(phone)) {
