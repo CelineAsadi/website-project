@@ -122,6 +122,7 @@ export const useProfileLogic = () => {
     handleLogOut,
     handleProfileCardPage,
     handleToggleFavorite,
+    categorizedNews,
     filteredNews,
   };
 };

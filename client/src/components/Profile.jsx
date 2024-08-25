@@ -17,6 +17,7 @@ const Profile = () => {
     handleLogOut,
     handleProfileCardPage,
     handleToggleFavorite,
+    categorizedNews,
     filteredNews,
   } = useProfileLogic();
 
@@ -35,7 +36,7 @@ const Profile = () => {
             className="profile-category-select"
           >
             <option value="All">All</option>
-            {Object.keys(filteredNews).map(category => (
+            {Object.keys(categorizedNews).map(category => (
               <option key={category} value={category}>
                 {category}
               </option>
