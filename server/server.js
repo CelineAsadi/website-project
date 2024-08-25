@@ -169,8 +169,6 @@ app.get('/profilecard/:userId', async (req, res) => {
     }
 });
 
-
-// Endpoint to update user profile data
 app.put('/update-profile/:userId', async (req, res) => {
     const { userId } = req.params;
     const { username, email, phone } = req.body;
@@ -180,7 +178,7 @@ app.put('/update-profile/:userId', async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-        
+
         // Check if the new username is already taken
         if (username && username !== user.username) {
             const usernameExists = await User.findOne({ username });
@@ -190,24 +188,29 @@ app.put('/update-profile/:userId', async (req, res) => {
             user.username = username;
         }
 
-        // Validate email and phone
-        if (email && !email.endsWith('@gmail.com')) {
-            return res.status(400).json({ message: 'Email must end with @gmail.com' });
-        }
-        const emailExists = await User.findOne({ email });
-        if (emailExists) {
-            return res.status(400).json({ message: 'email is already taken' });
-        }
-        if (phone && phone.length !== 10 || !/^\d{10}$/.test(phone)) {
-            return res.status(400).json({ message: 'Phone number must be 10 digits' });
+        // Validate email
+        if (email && email !== user.email) {
+            if (!email.endsWith('@gmail.com')) {
+                return res.status(400).json({ message: 'Email must end with @gmail.com' });
+            }
+            const emailExists = await User.findOne({ email });
+            if (emailExists) {
+                return res.status(400).json({ message: 'Email is already taken' });
+            }
+            user.email = email;
         }
 
-        // Update user details
-        if (email) user.email = email;
-        if (phone) user.phone = phone;
+        // Validate phone
+        if (phone && phone !== user.phone) {
+            if (phone.length !== 10 || !/^\d{10}$/.test(phone)) {
+                return res.status(400).json({ message: 'Phone number must be 10 digits' });
+            }
+            user.phone = phone;
+        }
 
+        // Save updated user details
         await user.save();
-        res.status(200).json({ message: 'Profile updated successfully' });
+        res.status(200).json({ message: 'Profile updated successfully', data: user });
     } catch (error) {
         console.error('Server error:', error);
         res.status(500).json({ message: 'Internal Server Error' });
