@@ -10,7 +10,7 @@ function Home() {
     handleLogin,
     handleSignIn,
     handleSearch,
-    DarkTheme,
+    toggleTheme,
   } = useHomeLogic();
 
   return (
@@ -49,7 +49,7 @@ function Home() {
           Sign up
         </button>
         <button className="home-toggle-theme-button" onClick={toggleTheme}>
-          Dark Mode
+          Toggle Theme
         </button>
       </div>
       <Footer /> {/* Use the Footer component */}
