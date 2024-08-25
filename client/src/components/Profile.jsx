@@ -201,7 +201,7 @@
 //   };
 
 // export default Profile;
-
+//jn
 import React from 'react';
 import { useProfileLogic } from './ProfileLogic'; // Adjust the import path as needed
 
