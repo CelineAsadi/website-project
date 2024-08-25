@@ -192,11 +192,11 @@ app.put('/update-profile/:userId', async (req, res) => {
 
         // Validate email and phone
         if (email && !email.endsWith('@gmail.com')) {
-            const emailExists = await User.findOne({ email });
-            if (emailExists) {
-                return res.status(400).json({ message: 'email is already taken' });
-            }
             return res.status(400).json({ message: 'Email must end with @gmail.com' });
+        }
+        const emailExists = await User.findOne({ email });
+        if (emailExists) {
+            return res.status(400).json({ message: 'email is already taken' });
         }
         if (phone && phone.length !== 10 || !/^\d{10}$/.test(phone)) {
             return res.status(400).json({ message: 'Phone number must be 10 digits' });
