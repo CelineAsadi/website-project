@@ -95,7 +95,7 @@ const Profile = () => {
           onClick={handleToggleDarkMode}
           className="profile-button profile-button-toggle"
         >
-          Toggle Theme
+          Dark Mode
         </button>
       </aside>
 
