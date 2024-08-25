@@ -30,7 +30,6 @@ function ProfileCard() {
           <p className="profile-card-loading">Loading...</p>
         ) : (
           <div>
-            // Notification display conditioned on notification existence and type
             {notification && (
               <div
                 className={`profile-card-notification ${
@@ -41,7 +40,6 @@ function ProfileCard() {
               </div>
             )}
             <h1 className="profile-card-title">Profile Card</h1>
-            // Form for updating user profile
             <form onSubmit={handleUpdate}>
               <div className="profile-card-input-group">
                 <label htmlFor="username" className="profile-card-label">Username</label>
@@ -62,7 +60,6 @@ function ProfileCard() {
                   onChange={(e) => setEmail(e.target.value)}
                   className="profile-card-input"
                 />
-                // Display email errors if any
                 {errors.email && <p className="profile-card-error-message">{errors.email}</p>}
               </div>
               <div className="profile-card-input-group">
@@ -73,15 +70,13 @@ function ProfileCard() {
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   className="profile-card-input"
-                />
-                // Display phone errors if any
+                /> 
                 {errors.phone && <p className="profile-card-error-message">{errors.phone}</p>}
               </div>
               <div className="profile-card-button-group">
                 <button type="submit" className="profile-card-button">Update</button>
               </div>
             </form>
-            // Display user ID errors if any
             {errors.userId && <p className="profile-card-error-message">{errors.userId}</p>}
           </div>
         )}
