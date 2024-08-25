@@ -1,0 +1,61 @@
+/* Login.css */
+.login-container {
+    @apply flex justify-center items-center h-screen transition-colors duration-300;
+    @apply bg-gray-100 dark:bg-gray-900;
+}
+
+.login-box {
+    @apply w-96 p-6 shadow-lg rounded-md transition-colors duration-300;
+    @apply bg-white dark:bg-gray-800;
+}
+
+.login-title {
+    @apply text-3xl block text-center font-semibold transition-colors duration-300;
+    @apply text-gray-900 dark:text-white;
+}
+
+.login-divider {
+    @apply mt-3;
+}
+
+.login-input-group {
+    @apply mt-3;
+}
+
+.login-label {
+    @apply block text-base mb-2 transition-colors duration-300;
+    @apply text-gray-700 dark:text-gray-300;
+}
+
+.login-input {
+    @apply border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 transition-colors duration-300;
+    @apply border-gray-300 dark:border-gray-600;
+}
+
+.login-input-error {
+    @apply border-red-500;
+}
+
+.login-error-message {
+    @apply text-red-500 text-sm mt-3;
+}
+
+.login-notification {
+    @apply text-green-500 text-sm mt-3 transition-colors duration-300;
+    @apply text-green-800 dark:text-green-300;
+}
+
+.login-button-group {
+    @apply mt-5 flex justify-between items-center;
+}
+
+.login-button {
+    @apply border-2 py-1 w-full rounded-md font-semibold transition-colors duration-300;
+    @apply border-gray-300 bg-gray-300 text-black hover:bg-transparent hover:text-gray-800;
+    @apply dark:border-gray-800 dark:bg-gray-800 dark:text-white dark:hover:bg-transparent dark:hover:text-gray-300;
+}
+
+.login-forgot-password {
+    @apply text-blue-500 hover:underline transition-colors duration-300;
+    @apply dark:text-blue-300;
+}

@@ -1,0 +1,113 @@
+/* Profile.css */
+.profile-container {
+    @apply min-h-screen bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200 transition-colors duration-300;
+  }
+  
+  .profile-header {
+    @apply w-full py-6 px-4 sm:px-8 bg-gray-200 dark:bg-gray-800 flex flex-col items-center border-b border-gray-300;
+  }
+  
+  .profile-title {
+    @apply text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-gray-100;
+  }
+  
+  .profile-main {
+    @apply flex-grow p-4 sm:p-8;
+  }
+  
+  .profile-category-label {
+    @apply block text-lg mb-2;
+  }
+  
+  .profile-category-select {
+    @apply w-full h-12 px-4 py-2 rounded-lg font-bold transition-colors duration-300 bg-gray-200 dark:bg-gray-700 text-black dark:text-gray-200;
+  }
+  
+  .profile-notification {
+    @apply p-4 mb-4 rounded-lg border bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-300 border-green-300 dark:border-green-600;
+  }
+  
+  .profile-loading {
+    @apply text-center;
+  }
+  
+  .profile-error {
+    @apply text-red-500;
+  }
+  
+  .profile-news-list {
+    @apply space-y-4;
+  }
+  
+  .profile-news-item {
+    @apply p-4 rounded-lg shadow-lg bg-white dark:bg-gray-800 transition-colors duration-300;
+  }
+  
+  .profile-news-title {
+    @apply text-xl font-semibold;
+  }
+  
+  .profile-news-description {
+    @apply text-base text-gray-700 dark:text-gray-400;
+  }
+  
+  .profile-favorite-button {
+    @apply text-yellow-500 hover:text-yellow-600;
+  }
+  
+  .profile-favorite-icon {
+    @apply text-gray-400;
+  }
+  
+  .profile-footer {
+    @apply bg-blue-100 dark:bg-gray-900 text-center py-8 mt-auto text-black dark:text-white;
+  }
+  
+  .profile-footer-text {
+    @apply text-base md:text-lg;
+  }
+  
+  .profile-footer-links {
+    @apply mt-4 flex justify-center flex-wrap;
+  }
+  
+  .profile-footer-link {
+    @apply hover:underline;
+  }
+  
+  .profile-footer-link-facebook {
+    @apply text-blue-600 dark:text-blue-400 mr-4;
+  }
+  
+  .profile-footer-link-instagram {
+    @apply text-pink-600 dark:text-pink-400;
+  }
+  
+  .profile-footer-copyright {
+    @apply text-sm mt-8;
+  }
+  
+  .profile-aside {
+    @apply fixed bottom-0 left-0 right-0 z-50 p-4 bg-gray-200 dark:bg-gray-800 flex justify-around border-t border-gray-300;
+  }
+  
+  .profile-button {
+    @apply px-4 py-2 rounded-lg font-bold transition-colors duration-300;
+  }
+  
+  .profile-button-card {
+    @apply bg-blue-400 hover:bg-blue-300 text-black dark:bg-blue-600 dark:hover:bg-blue-500 dark:text-white;
+  }
+  
+  .profile-button-favorites {
+    @apply bg-green-500 hover:bg-green-600 text-white;
+  }
+  
+  .profile-button-logout {
+    @apply bg-red-500 hover:bg-red-600 text-white;
+  }
+  
+  .profile-button-toggle {
+    @apply bg-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500 text-black dark:text-white;
+  }
+  

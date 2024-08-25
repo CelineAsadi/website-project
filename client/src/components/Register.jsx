@@ -1,92 +1,37 @@
-import React, { useState, useEffect } from "react";
-import axios from 'axios'; // Ensure axios is installed and imported
-import { useNavigate } from 'react-router-dom';
+// Register.js
+import React from "react";
+import { useRegisterLogic } from "./Logic/RegisterLogic";
+import   './Style/Register.css';
 
 function Register() {
-    // State variables
-    const [username, setUsername] = useState(''); // State to store username
-    const [email, setEmail] = useState(''); // State to store email address
-    const [phone, setPhone] = useState(''); // State to store phone number
-    const [password, setPassword] = useState(''); // State to store password
-    const [confirmPassword, setConfirmPassword] = useState(''); // State to store password confirmation
-    const [errors, setErrors] = useState({}); // State to store form errors
-    const [notification, setNotification] = useState(''); // State to store success or error messages
-    const [isDarkMode, setIsDarkMode] = useState(false); // State to manage dark mode
-    const navigate = useNavigate(); // Initialize navigation function
-
-    // Effect to load the saved theme from local storage on component mount
-    useEffect(() => {
-        const savedTheme = localStorage.getItem('theme');
-        setIsDarkMode(savedTheme === 'dark'); // Set dark mode based on saved theme
-    }, []);
-
-    // Function to handle form submission
-    const handleSubmit = async (event) => {
-        event.preventDefault(); // Prevent default form submission behavior
-        setErrors({}); // Clear previous errors
-        setNotification(''); // Clear any existing notification
-
-        // Check if all fields are filled
-        if (!username || !email || !phone || !password || !confirmPassword) {
-            setErrors({ form: 'Please fill in all fields.' });
-            return;
-        }
-
-        // Check if passwords match
-        if (password !== confirmPassword) {
-            setErrors({ form: 'Passwords do not match.' });
-            return;
-        }
-
-        // Validate email
-        if (!email.endsWith('@gmail.com')) {
-            setErrors({ form: 'Email must end with @gmail.com.' });
-            return;
-        }
-
-        // Validate phone number
-        if (phone.length !== 10 || !/^\d{10}$/.test(phone)) {
-            setErrors({ form: 'The phone number must be exactly 10 digits.' });
-            return;
-        }
-
-        try {
-            // Send registration request to the server
-            const response = await axios.post('https://website-project-orpin.vercel.app/Register', {
-                username,
-                email,
-                phone,
-                password
-            });
-
-            // Check if registration was successful
-            if (response.data.message === 'Registration success') {
-                setNotification('You have been signed up successfully.'); // Set success notification
-                setTimeout(() => {
-                    navigate("/Login"); // Navigate to Login page after a delay to show the notification
-                }, 1000); // Delay to display notification
-            } else {
-                // Set form errors if registration was unsuccessful
-                setErrors({ form: response.data.message });
-            }
-        } catch (err) {
-            console.error(err); // Log error to the console
-            // Set error message if there was an issue with the request
-            setErrors({ form: 'An error occurred. Please try again later.' });
-        }
-    };
+    const {
+        username,
+        setUsername,
+        email,
+        setEmail,
+        phone,
+        setPhone,
+        password,
+        setPassword,
+        confirmPassword,
+        setConfirmPassword,
+        errors,
+        setErrors, 
+        notification,
+        isDarkMode,
+        handleSubmit,
+    } = useRegisterLogic();
 
     return (
-        <div className={`flex justify-center items-center h-screen ${isDarkMode ? 'bg-gray-900' : 'bg-gray-100'}`}>
-            <div className={`w-96 p-6 shadow-lg ${isDarkMode ? 'bg-gray-800' : 'bg-white'} rounded-md`}>
-                <h1 className={`text-3xl block text-center font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+        <div className={`register-container ${isDarkMode ? 'dark' : ''}`}>
+            <div className="register-box">
+                <h1 className="register-title">
                     <i className="fa-solid fa-user-plus"></i> Register
                 </h1>
-                <hr className="mt-3" />
+                <hr className="register-divider" />
                 <form onSubmit={handleSubmit}>
-                    {/* Username input field */}
-                    <div className="mt-3">
-                        <label htmlFor="username" className={`block text-base mb-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>Username</label>
+                    <div className="register-input-group">
+                        <label htmlFor="username" className="register-label">Username</label>
                         <input
                             type="text"
                             id="username"
@@ -95,15 +40,14 @@ function Register() {
                                 setUsername(e.target.value);
                                 setErrors(prevErrors => ({ ...prevErrors, username: '' }));
                             }}
-                            className={`border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 ${isDarkMode ? 'border-gray-600' : 'border-gray-300'} ${errors.username ? 'border-red-500' : ''}`}
+                            className={`register-input ${errors.username ? 'register-input-error' : ''}`}
                             placeholder="Enter Username..."
                         />
-                        {errors.username && <p className="text-red-500 text-sm">{errors.username}</p>} {/* Display username errors */}
+                        {errors.username && <p className="register-error-message">{errors.username}</p>}
                     </div>
 
-                    {/* Email input field */}
-                    <div className="mt-3">
-                        <label htmlFor="email" className={`block text-base mb-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>Email</label>
+                    <div className="register-input-group">
+                        <label htmlFor="email" className="register-label">Email</label>
                         <input
                             type="email"
                             id="email"
@@ -112,15 +56,14 @@ function Register() {
                                 setEmail(e.target.value);
                                 setErrors(prevErrors => ({ ...prevErrors, email: '' }));
                             }}
-                            className={`border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 ${isDarkMode ? 'border-gray-600' : 'border-gray-300'} ${errors.email ? 'border-red-500' : ''}`}
+                            className={`register-input ${errors.email ? 'register-input-error' : ''}`}
                             placeholder="Enter email..."
                         />
-                        {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>} {/* Display email errors */}
+                        {errors.email && <p className="register-error-message">{errors.email}</p>}
                     </div>
 
-                    {/* Phone input field */}
-                    <div className="mt-3">
-                        <label htmlFor="phone" className={`block text-base mb-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>Phone</label>
+                    <div className="register-input-group">
+                        <label htmlFor="phone" className="register-label">Phone</label>
                         <input
                             type="text"
                             id="phone"
@@ -129,15 +72,14 @@ function Register() {
                                 setPhone(e.target.value);
                                 setErrors(prevErrors => ({ ...prevErrors, phone: '' }));
                             }}
-                            className={`border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 ${isDarkMode ? 'border-gray-600' : 'border-gray-300'} ${errors.phone ? 'border-red-500' : ''}`}
+                            className={`register-input ${errors.phone ? 'register-input-error' : ''}`}
                             placeholder="Enter phone..."
                         />
-                        {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>} {/* Display phone errors */}
+                        {errors.phone && <p className="register-error-message">{errors.phone}</p>}
                     </div>
 
-                    {/* Password input field */}
-                    <div className="mt-3">
-                        <label htmlFor="password" className={`block text-base mb-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>Password</label>
+                    <div className="register-input-group">
+                        <label htmlFor="password" className="register-label">Password</label>
                         <input
                             type="password"
                             id="password"
@@ -146,15 +88,14 @@ function Register() {
                                 setPassword(e.target.value);
                                 setErrors(prevErrors => ({ ...prevErrors, password: '' }));
                             }}
-                            className={`border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 ${isDarkMode ? 'border-gray-600' : 'border-gray-300'} ${errors.password ? 'border-red-500' : ''}`}
+                            className={`register-input ${errors.password ? 'register-input-error' : ''}`}
                             placeholder="Enter password..."
                         />
-                        {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>} {/* Display password errors */}
+                        {errors.password && <p className="register-error-message">{errors.password}</p>}
                     </div>
 
-                    {/* Confirm Password input field */}
-                    <div className="mt-3">
-                        <label htmlFor="confirmPassword" className={`block text-base mb-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>Confirm Password</label>
+                    <div className="register-input-group">
+                        <label htmlFor="confirmPassword" className="register-label">Confirm Password</label>
                         <input
                             type="password"
                             id="confirmPassword"
@@ -163,22 +104,17 @@ function Register() {
                                 setConfirmPassword(e.target.value);
                                 setErrors(prevErrors => ({ ...prevErrors, confirmPassword: '' }));
                             }}
-                            className={`border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 ${isDarkMode ? 'border-gray-600' : 'border-gray-300'} ${errors.confirmPassword ? 'border-red-500' : ''}`}
+                            className={`register-input ${errors.confirmPassword ? 'register-input-error' : ''}`}
                             placeholder="Confirm password..."
                         />
-                        {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>} {/* Display confirm password errors */}
+                        {errors.confirmPassword && <p className="register-error-message">{errors.confirmPassword}</p>}
                     </div>
 
-                    {/* Display form-level errors and notifications */}
-                    {errors.form && <p className="text-red-500 text-sm mt-3">{errors.form}</p>}
-                    {notification && <p className={`text-green-500 text-sm mt-3 ${isDarkMode ? 'text-green-300' : 'text-green-800'}`}>{notification}</p>}
+                    {errors.form && <p className="register-error-message">{errors.form}</p>}
+                    {notification && <p className="register-notification">{notification}</p>}
 
-                    {/* Register button */}
-                    <div className="mt-5">
-                        <button
-                            type="submit"
-                            className={`border-2 ${isDarkMode ? 'border-gray-800 bg-gray-800' : 'border-gray-300 bg-gray-300'} text-white py-1 w-full rounded-md hover:bg-transparent hover:text-gray-800 font-semibold`}
-                        >
+                    <div className="register-button-group">
+                        <button type="submit" className="register-button">
                             <i className="fa-solid fa-user-plus"></i>&nbsp;&nbsp;Register
                         </button>
                     </div>

@@ -1,0 +1,61 @@
+/* ProfileCard.css */
+
+.profile-card-container {
+    @apply flex items-center justify-center min-h-screen transition-colors duration-300;
+    @apply bg-gray-100 dark:bg-gray-900;
+  }
+  
+  .profile-card-box {
+    @apply p-6 rounded-lg shadow-lg w-full max-w-md transition-colors duration-300;
+    @apply bg-white dark:bg-gray-800;
+  }
+  
+  .profile-card-loading {
+    @apply text-center transition-colors duration-300;
+    @apply text-gray-900 dark:text-gray-300;
+  }
+  
+  .profile-card-notification {
+    @apply mb-4 p-4 rounded text-white;
+  }
+  
+  .profile-card-notification-success {
+    @apply bg-green-500;
+  }
+  
+  .profile-card-notification-error {
+    @apply bg-red-500;
+  }
+  
+  .profile-card-title {
+    @apply text-2xl font-bold mb-4 text-center transition-colors duration-300;
+    @apply text-gray-900 dark:text-white;
+  }
+  
+  .profile-card-input-group {
+    @apply mb-4;
+  }
+  
+  .profile-card-label {
+    @apply block font-bold mb-2 transition-colors duration-300;
+    @apply text-black dark:text-white;
+  }
+  
+  .profile-card-input {
+    @apply w-full px-3 py-2 border rounded-md transition-colors duration-300;
+    @apply border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white;
+  }
+  
+  .profile-card-error-message {
+    @apply text-red-500 text-sm;
+  }
+  
+  .profile-card-button-group {
+    @apply flex items-center justify-center;
+  }
+  
+  .profile-card-button {
+    @apply px-4 py-2 rounded-md text-white transition-colors duration-300;
+    @apply bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700;
+  }
+  

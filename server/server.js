@@ -9,8 +9,9 @@ const app = express();
 const port =3001;
 const corsOptions = {
     origin: [
-        "http://localhost:3000",
-        "https://website-project-khak.vercel.app/"
+        "http://localhost:3000"
+        // "http://localhost:3000",
+        // "https://website-project-khak.vercel.app/"
         
     ],
 };
@@ -192,6 +193,10 @@ app.put('/update-profile/:userId', async (req, res) => {
 
         // Validate email and phone
         if (email && !email.endsWith('@gmail.com')) {
+            // const emailExists = await User.findOne({ email });
+            // if (emailExists) {
+            //     return res.status(400).json({ message: 'email is already taken' });
+            // }
             return res.status(400).json({ message: 'Email must end with @gmail.com' });
         }
         if (phone && phone.length !== 10 || !/^\d{10}$/.test(phone)) {

@@ -1,32 +1,31 @@
-// ProfileLogic.js
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { fetchNews } from '../newsService'; // Adjust this import based on your file structure
+import { fetchNews } from  '../../newsService'; // Adjust this import based on your file structure
 
 export const useProfileLogic = () => {
   // State variables
-  const [news, setNews] = useState([]); // Stores news articles
-  const [loading, setLoading] = useState(true); // Loading state for news fetching
-  const [error, setError] = useState(null); // Error state for news fetching
-  const [isDarkMode, setIsDarkMode] = useState(() => localStorage.getItem('darkMode') === 'true'); // Dark mode state
-  const [selectedCategory, setSelectedCategory] = useState('All'); // Selected category for filtering news
-  const [favorites, setFavorites] = useState([]); // Stores favorite news articles
-  const [notification, setNotification] = useState(''); // Notification state
+  const [news, setNews] = useState([]); 
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [isDarkMode, setIsDarkMode] = useState(() => localStorage.getItem('darkMode') === 'true');
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [favorites, setFavorites] = useState([]);
+  const [notification, setNotification] = useState('');
 
-  const navigate = useNavigate(); // Hook for navigation
-  const userId = localStorage.getItem('userId'); // Fetch user ID from localStorage
+  const navigate = useNavigate();
+  const userId = localStorage.getItem('userId');
 
-  // Fetch news when the component mounts
+  // Fetch news on component mount
   useEffect(() => {
     const getNews = async () => {
       try {
-        const newsData = await fetchNews(); // Fetch news data
-        setNews(newsData); // Update state with news data
+        const newsData = await fetchNews();
+        setNews(newsData);
       } catch (error) {
-        setError('Failed to fetch news'); // Set error message if fetching fails
+        setError('Failed to fetch news');
       } finally {
-        setLoading(false); // Set loading to false after fetching
+        setLoading(false);
       }
     };
     getNews();
@@ -35,17 +34,17 @@ export const useProfileLogic = () => {
   // Handle dark mode toggle and save preference to localStorage
   useEffect(() => {
     if (isDarkMode) {
-      document.documentElement.classList.add('dark'); // Add dark mode class
-      localStorage.setItem('darkMode', 'true'); // Save preference to localStorage
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('darkMode', 'true');
     } else {
-      document.documentElement.classList.remove('dark'); // Remove dark mode class
-      localStorage.setItem('darkMode', 'false'); // Save preference to localStorage
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('darkMode', 'false');
     }
   }, [isDarkMode]);
 
   // Toggle dark mode
   const handleToggleDarkMode = () => {
-    setIsDarkMode(prevMode => !prevMode); // Toggle dark mode state
+    setIsDarkMode(prevMode => !prevMode);
   };
 
   // Navigate to Favorites page
@@ -58,7 +57,7 @@ export const useProfileLogic = () => {
     localStorage.removeItem('userId');
     localStorage.removeItem('darkMode');
     localStorage.removeItem('favorites');
-    navigate('/'); // Navigate to the home screen
+    navigate('/');
   };
 
   // Navigate to Profile Card page
@@ -104,7 +103,7 @@ export const useProfileLogic = () => {
   // Clear notifications after a delay
   useEffect(() => {
     if (notification) {
-      const timer = setTimeout(() => setNotification(''), 3000); // Clear notification after 3 seconds
+      const timer = setTimeout(() => setNotification(''), 3000);
       return () => clearTimeout(timer);
     }
   }, [notification]);
@@ -115,6 +114,7 @@ export const useProfileLogic = () => {
     error,
     isDarkMode,
     selectedCategory,
+    setSelectedCategory, // Ensure this is returned
     favorites,
     notification,
     handleToggleDarkMode,
