@@ -1,10 +1,12 @@
+// Import necessary hooks from React and other utilities
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { fetchNews } from  '../../newsService'; // Adjust this import based on your file structure
 
+// Define a custom hook for managing the profile page logic
 export const useProfileLogic = () => {
-  // State variables
+  // State variables for storing news, UI states, user preferences, and user data
   const [news, setNews] = useState([]); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -13,10 +15,12 @@ export const useProfileLogic = () => {
   const [favorites, setFavorites] = useState([]);
   const [notification, setNotification] = useState('');
 
+  // Hook to handle navigation programmatically
   const navigate = useNavigate();
+  // Retrieve the user ID from local storage
   const userId = localStorage.getItem('userId');
 
-  // Fetch news on component mount
+  // Fetch news on component mount using an asynchronous function
   useEffect(() => {
     const getNews = async () => {
       try {
@@ -31,7 +35,7 @@ export const useProfileLogic = () => {
     getNews();
   }, []);
 
-  // Handle dark mode toggle and save preference to localStorage
+  // Effect to handle dark mode changes and synchronize with local storage
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
@@ -42,17 +46,17 @@ export const useProfileLogic = () => {
     }
   }, [isDarkMode]);
 
-  // Toggle dark mode
+  // Function to toggle the dark mode setting
   const handleToggleDarkMode = () => {
     setIsDarkMode(prevMode => !prevMode);
   };
 
-  // Navigate to Favorites page
+  // Function to navigate to the Favorites page with state parameters
   const handleFavoritesPage = () => {
     navigate('/FavoriteNews', { state: { userId, darkMode: isDarkMode } });
   };
 
-  // Log out and clear localStorage
+  // Function to log out the user and clear relevant data from local storage
   const handleLogOut = () => {
     localStorage.removeItem('userId');
     localStorage.removeItem('darkMode');
@@ -60,12 +64,12 @@ export const useProfileLogic = () => {
     navigate('/');
   };
 
-  // Navigate to Profile Card page
+  // Function to navigate to the Profile Card page with state parameters
   const handleProfileCardPage = () => {
     navigate('/ProfileCard', { state: { userId, darkMode: isDarkMode } });
   };
 
-  // Categorize news articles
+  // Function to categorize news articles by their category
   const categorizedNews = news.reduce((acc, item) => {
     const category = item.category || 'Uncategorized';
     if (!acc[category]) acc[category] = [];
@@ -73,17 +77,15 @@ export const useProfileLogic = () => {
     return acc;
   }, {});
 
-  // Filter news based on selected category
+  // Function to filter news based on the selected category
   const filteredNews = selectedCategory === 'All' 
     ? news 
     : categorizedNews[selectedCategory] || [];
 
-  // Handle adding or removing news from favorites
+  // Function to toggle a news item's favorite status
   const handleToggleFavorite = async (newsItem) => {
-    const userId = localStorage.getItem('userId');
     try {
       const isFavorite = favorites.some(fav => fav.url === newsItem.url);
-
       if (isFavorite) {
         // Remove from favorites
         await axios.post('https://website-project-orpin.vercel.app/favorites/remove', { userId, newsUrl: newsItem.url });
@@ -100,7 +102,7 @@ export const useProfileLogic = () => {
     }
   };
 
-  // Clear notifications after a delay
+  // Clear notifications automatically after a short delay
   useEffect(() => {
     if (notification) {
       const timer = setTimeout(() => setNotification(''), 3000);
@@ -108,13 +110,14 @@ export const useProfileLogic = () => {
     }
   }, [notification]);
 
+  // Expose states and handlers for use in UI components
   return {
     news,
     loading,
     error,
     isDarkMode,
     selectedCategory,
-    setSelectedCategory, // Ensure this is returned
+    setSelectedCategory,
     favorites,
     notification,
     handleToggleDarkMode,

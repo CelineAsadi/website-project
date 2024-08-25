@@ -1,9 +1,11 @@
-// ProfileCard.js
+// Import React and necessary custom hook
 import React from 'react';
-import { useProfileCardLogic } from './Logic/ProfileCardLogic';
-import './Style/ProfileCard.css';
+import { useProfileCardLogic } from './Logic/ProfileCardLogic'; // Import custom logic for profile card
+import './Style/ProfileCard.css'; // Import CSS for styling
 
+// Define the ProfileCard functional component
 function ProfileCard() {
+  // Destructure variables and functions from the custom hook
   const {
     username,
     setUsername,
@@ -19,13 +21,16 @@ function ProfileCard() {
     handleUpdate
   } = useProfileCardLogic();
 
+  // Render the component with conditional rendering based on loading and dark mode status
   return (
     <div className={`profile-card-container ${isDarkMode ? 'dark' : ''}`}>
       <div className="profile-card-box">
         {loading ? (
+          // Display loading message if data is still loading
           <p className="profile-card-loading">Loading...</p>
         ) : (
           <div>
+            // Notification display conditioned on notification existence and type
             {notification && (
               <div
                 className={`profile-card-notification ${
@@ -36,6 +41,7 @@ function ProfileCard() {
               </div>
             )}
             <h1 className="profile-card-title">Profile Card</h1>
+            // Form for updating user profile
             <form onSubmit={handleUpdate}>
               <div className="profile-card-input-group">
                 <label htmlFor="username" className="profile-card-label">Username</label>
@@ -56,6 +62,7 @@ function ProfileCard() {
                   onChange={(e) => setEmail(e.target.value)}
                   className="profile-card-input"
                 />
+                // Display email errors if any
                 {errors.email && <p className="profile-card-error-message">{errors.email}</p>}
               </div>
               <div className="profile-card-input-group">
@@ -67,12 +74,14 @@ function ProfileCard() {
                   onChange={(e) => setPhone(e.target.value)}
                   className="profile-card-input"
                 />
+                // Display phone errors if any
                 {errors.phone && <p className="profile-card-error-message">{errors.phone}</p>}
               </div>
               <div className="profile-card-button-group">
                 <button type="submit" className="profile-card-button">Update</button>
               </div>
             </form>
+            // Display user ID errors if any
             {errors.userId && <p className="profile-card-error-message">{errors.userId}</p>}
           </div>
         )}
@@ -80,5 +89,5 @@ function ProfileCard() {
     </div>
   );
 }
-
+// Export the ProfileCard component for use in other parts of the application
 export default ProfileCard;

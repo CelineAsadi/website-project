@@ -1,9 +1,11 @@
-// ProfileCardLogic.js
+// Import necessary hooks and axios for HTTP requests
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 
+// Custom hook for managing the logic of a user profile card
 export const useProfileCardLogic = () => {
+  // State hooks for managing user data, errors, and UI states
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -12,25 +14,29 @@ export const useProfileCardLogic = () => {
   const [notificationType, setNotificationType] = useState('');
   const [loading, setLoading] = useState(true);
 
+  // Access location object to retrieve passed state parameters
   const location = useLocation();
   const { userId, darkMode } = location.state || {};
+  // Manage dark mode preference locally
   const [isDarkMode, setIsDarkMode] = useState(darkMode || false);
 
+  // Effect hook to synchronize dark mode state with local storage
   useEffect(() => {
     const savedDarkMode = localStorage.getItem('darkMode') === 'true';
     setIsDarkMode(savedDarkMode);
   }, []);
 
+  // Apply dark mode class based on the state
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
     }
-
     localStorage.setItem('darkMode', isDarkMode ? 'true' : 'false');
   }, [isDarkMode]);
 
+  // Fetch user profile data from the server based on the userId
   useEffect(() => {
     const fetchProfileData = async () => {
       if (!userId) {
@@ -56,23 +62,19 @@ export const useProfileCardLogic = () => {
     fetchProfileData();
   }, [userId]);
 
+  // Handle the submission to update user profile data
   const handleUpdate = async (e) => {
     e.preventDefault();
 
     const isValidEmail = email.endsWith('@gmail.com');
-
     if (!isValidEmail) {
-      setErrors({
-        email: !isValidEmail ? 'Email must end with @gmail.com' : ''
-      });
+      setErrors({ email: 'Email must end with @gmail.com' });
       return;
     }
 
     try {
       const response = await axios.put(`https://website-project-orpin.vercel.app/update-profile/${userId}`, {
-        username,
-        email,
-        phone
+        username, email, phone
       });
       setNotification(response.data.message || 'Profile updated successfully');
       setNotificationType('success');
@@ -92,6 +94,7 @@ export const useProfileCardLogic = () => {
     }
   };
 
+  // Clear errors automatically after a delay
   useEffect(() => {
     if (Object.keys(errors).length > 0) {
       const timer = setTimeout(() => setErrors({}), 2000);
@@ -99,19 +102,13 @@ export const useProfileCardLogic = () => {
     }
   }, [errors]);
 
+  // Return states and function handlers to be utilized by the component
   return {
-    username,
-    setUsername,
-    email,
-    setEmail,
-    phone,
-    setPhone,
-    errors,
-    notification,
-    notificationType,
-    loading,
-    isDarkMode,
-    setIsDarkMode,
+    username, setUsername,
+    email, setEmail,
+    phone, setPhone,
+    errors, notification, notificationType,
+    loading, isDarkMode, setIsDarkMode,
     handleUpdate
   };
 };

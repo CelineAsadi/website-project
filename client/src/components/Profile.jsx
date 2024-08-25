@@ -1,9 +1,12 @@
+// Import necessary React library and components
 import React from 'react';
-import { useProfileLogic } from './Logic/ProfileLogic'; // Adjust the import path as needed
-import Footer from './Footer'; // Import the Footer component
-import './Style/Profile.css'; // Import the CSS file
+import { useProfileLogic } from './Logic/ProfileLogic'; // Import custom logic for Profile
+import Footer from './Footer'; // Import the Footer component for use at the bottom of the page
+import './Style/Profile.css'; // Import CSS for styling
 
+// Define the Profile functional component
 const Profile = () => {
+  // Destructure necessary variables and functions from the custom hook
   const {
     loading,
     error,
@@ -20,19 +23,22 @@ const Profile = () => {
     categorizedNews,
     filteredNews,
   } = useProfileLogic();
-
+  // Render the Profile component with conditional styling based on dark mode
   return (
     <div className={`profile-container ${isDarkMode ? 'dark' : ''}`}>
+      {/* Header section of the profile */}
       <header className="profile-header">
         <h1 className="profile-title">Profile</h1>
       </header>
+      {/* Main content area for profile */}
       <main className="profile-main">
+        {/* Dropdown for selecting news category */}
         <div className="mb-4">
           <label htmlFor="category-select" className="profile-category-label">Select Category:</label>
           <select
             id="category-select"
             value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)} // Fix the error here
+            onChange={(e) => setSelectedCategory(e.target.value)}
             className="profile-category-select"
           >
             <option value="All">All</option>
@@ -43,15 +49,16 @@ const Profile = () => {
             ))}
           </select>
         </div>
-
+        {/* Display notification if present */}
         {notification && (
           <div className="profile-notification">
             {notification}
           </div>
         )}
-
+        {/* Display loading message or error message */}
         {loading && <p className="profile-loading">Loading...</p>}
         {error && <p className="profile-error">{error}</p>}
+        {/* List news items based on the selected category */}
         {!loading && !error && (selectedCategory === 'Favorites' ? favorites : filteredNews).length ? (
           <ul className="profile-news-list">
             {(selectedCategory === 'Favorites' ? favorites : filteredNews).map(newsItem => (
@@ -71,7 +78,7 @@ const Profile = () => {
           <p>No news available in this category</p>
         )}
       </main>
-
+      {/* Sidebar for profile-related actions */}
       <aside className="profile-aside">
         <button
           onClick={handleProfileCardPage}
@@ -98,10 +105,10 @@ const Profile = () => {
           Toggle Theme
         </button>
       </aside>
-
+      {/* Include the Footer component */}
       <Footer />
     </div>
   );
 };
-
+// Export the Profile component for use in other parts of the application
 export default Profile;
