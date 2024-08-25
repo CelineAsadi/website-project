@@ -180,10 +180,7 @@ app.put('/update-profile/:userId', async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-        const emailExists = await User.findOne({ email });
-            if (emailExists) {
-                return res.status(400).json({ message: 'email is already taken' });
-            }
+        
         // Check if the new username is already taken
         if (username && username !== user.username) {
             const usernameExists = await User.findOne({ username });
@@ -195,7 +192,10 @@ app.put('/update-profile/:userId', async (req, res) => {
 
         // Validate email and phone
         if (email && !email.endsWith('@gmail.com')) {
-            
+            const emailExists = await User.findOne({ email });
+            if (emailExists) {
+                return res.status(400).json({ message: 'email is already taken' });
+            }
             return res.status(400).json({ message: 'Email must end with @gmail.com' });
         }
         if (phone && phone.length !== 10 || !/^\d{10}$/.test(phone)) {
