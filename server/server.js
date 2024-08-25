@@ -180,10 +180,10 @@ app.put('/update-profile/:userId', async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-         const emailExists = await User.findOne({ email });
-            if (emailExists) {
-                return res.status(400).json({ message: 'Email is already taken' });
-            }
+        //  const emailExists = await User.findOne({ email });
+        //     if (emailExists) {
+        //         return res.status(400).json({ message: 'Email is already taken' });
+        //     }
 
         // Check if the new username is already taken
         if (username && username !== user.username) {
