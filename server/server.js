@@ -10,11 +10,17 @@ const port =3001;
 const corsOptions = {
     origin: [
         "http://localhost:3000",
-        "https://website-project-client.vercel.app"
-    ]
+        "https://website-project-client.vercel.app/"
+       
+        
+    ],
 };
 
 // Middleware
+app.use(cors({
+    origin: '*',  // Allows all origins
+  }));
+  
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(express.static('public'));
