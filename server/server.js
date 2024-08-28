@@ -46,10 +46,10 @@ app.post('/ForgotPassword', async (req, res) => {
 app.post('/Login', async (req, res) => {
     const { username, password } = req.body;
     try {
-        if ( password || username ) {
-            
-            return res.status(200).json({ message: 'Please fill in all the field' });
+        if (!password || !username) {
+            return res.status(200).json({ message: 'Please fill in all the fields' });
         }
+        
        // Check if there is a user with the provided username
         const user = await User.findOne({ username: username });
         if (!user  ) {
