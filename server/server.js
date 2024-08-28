@@ -48,7 +48,7 @@ app.post('/Login', async (req, res) => {
     try {
        // Check if there is a user with the provided username
         const user = await User.findOne({ username: username });
-        if (!user && username) {
+        if (!user ) {
             // If no user is found, respond with a 'User not found' message
             return res.status(200).json({ message: 'User not found' });
         }
